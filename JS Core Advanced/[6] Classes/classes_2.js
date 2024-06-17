@@ -8,7 +8,7 @@ class Rectangle {
         return 2 * (this.width + this.height);
     }
     calculatePerimeter2() {
-    return this.width + this.height + this.width + this.height
+    return this.width + this.height + this.width + this.height;
 }
     calculateArea1() {
         return this.width * this.height;
@@ -23,9 +23,9 @@ const rectangle = new Rectangle(4, 6);
 let area = rectangle.calculateArea1();
 let perimeter = rectangle.calculatePerimeter1();
 
-console.log('1: ' + area + ' ' + perimeter)
+console.log('1: ' + area + ' ' + perimeter);
 
 area = rectangle.calculateArea2();
 perimeter = rectangle.calculatePerimeter2();
 
-console.log('2: ' + area + ' ' + perimeter)
+console.log('2: ' + area + ' ' + perimeter);
