@@ -1,23 +1,48 @@
+:root {
+    --main-bg-color: brown;
+    --body-color: white;
+    --quiz-bg-color: #282828;
+    --box-shadow-color: rgba(0, 0, 0, 0.25);
+    --btn-bg-color: #9400b9;
+    --btn-correct-bg-color: #28a745;
+    --btn-wrong-bg-color: #dc3545;
+    --btn-selected-bg-color: #710086;
+    --btn-text-color: #fff;
+    --btn-padding: 10px;
+    --btn-margin: 5px 0;
+    --border-radius: 8px;
+    --btn-border-radius: 4px;
+    --padding: 20px;
+    --margin-top: 20px;
+    --margin-bottom: 20px;
+}
+
 body {
     font-family: Arial, sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    color: white;
+    color: var(--body-color);
     margin: 0;
+    background: var(--main-bg-color);
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
 }
 
 .quiz-container {
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+    background: var(--quiz-bg-color);
+    border-radius: var(--border-radius);
+    box-shadow: 0 0 10px var(--box-shadow-color);
     overflow: hidden;
     max-width: 600px;
     width: 100%;
-    padding: 20px;
+    padding: var(--padding);
     box-sizing: border-box;
-    color: black;
+    color: var(--btn-text-color);
+    position: relative;
+    z-index: 2;
 }
 
 .hide {
@@ -30,30 +55,30 @@ body {
 }
 
 .btn {
-    background: #007bff;
+    background: var(--btn-bg-color);
     border: none;
-    color: white;
-    padding: 10px;
-    margin: 5px 0;
+    color: var(--btn-text-color);
+    padding: var(--btn-padding);
+    margin: var(--btn-margin);
     cursor: pointer;
-    border-radius: 4px;
+    border-radius: var(--btn-border-radius);
 }
 
 .btn.correct {
-    background: #28a745;
+    background: var(--btn-correct-bg-color);
 }
 
 .btn.wrong {
-    background: #dc3545;
+    background: var(--btn-wrong-bg-color);
 }
 
 .btn.selected {
-    background: #0056b3;
+    background: var(--btn-selected-bg-color);
 }
 
 .controls {
     text-align: center;
-    margin-top: 20px;
+    margin-top: var(--margin-top);
 }
 
 #results, #score-container {
@@ -61,5 +86,12 @@ body {
 }
 
 #question-container {
-    margin-bottom: 20px;
+    margin-bottom: var(--margin-bottom);
+}
+
+#particles-js {
+    height: 100vh;
+    width: 100vw;
+    background-color: #090909;
+    position: absolute;
 }
