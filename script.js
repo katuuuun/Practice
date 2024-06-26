@@ -81,6 +81,7 @@ const restartButton = document.getElementById('restart-btn');
 let currentQuestionIndex = 0;
 let score = 0;
 let selectedAnswers = [];
+let correctAnswersCount = 0;
 
 function startQuiz() {
     currentQuestionIndex = 0;
@@ -98,7 +99,7 @@ function showQuestion(question) {
     questionElement.innerText = question.question;
     answerButtonsElement.innerHTML = '';
     selectedAnswers = [];
-    const correctAnswersCount = question.answers.filter(answer => answer.correct).length;
+    correctAnswersCount = question.answers.filter(answer => answer.correct).length;
     if (correctAnswersCount > 1) {
         multiAnswerNotificationElement.innerText = `Select ${correctAnswersCount} answers`;
         multiAnswerNotificationElement.classList.remove('hide');
@@ -122,10 +123,12 @@ function selectAnswer(button) {
         selectedAnswers = selectedAnswers.filter(b => b !== button);
         button.classList.remove('selected');
     } else {
-        selectedAnswers.push(button);
-        button.classList.add('selected');
+        if (selectedAnswers.length < correctAnswersCount) {
+            selectedAnswers.push(button);
+            button.classList.add('selected');
+        }
     }
-    if (selectedAnswers.length > 0) {
+    if (selectedAnswers.length === correctAnswersCount) {
         nextButton.classList.remove('hide');
     } else {
         nextButton.classList.add('hide');
@@ -157,21 +160,20 @@ function showResults() {
 
 nextButton.addEventListener('click', () => {
     const currentQuestion = questions[currentQuestionIndex];
-    let allCorrect = true;
+    let correctSelections = 0;
     selectedAnswers.forEach(button => {
         const correct = button.dataset.correct === "true";
         setStatusClass(button, correct);
         if (correct) {
-            score++;
-            scoreElement.innerText = `Score: ${score}`;
-        } else {
-            allCorrect = false;
+            correctSelections++;
         }
     });
-    if (allCorrect) {
-        score++;
-        scoreElement.innerText = `Score: ${score}`;
+    if (correctSelections === correctAnswersCount) {
+        score += 2;
+    } else if (correctSelections > 0) {
+        score += 1;
     }
+    scoreElement.innerText = `Score: ${score}`;
     Array.from(answerButtonsElement.children).forEach(button => {
         button.disabled = true;
     });
@@ -187,5 +189,5 @@ nextButton.addEventListener('click', () => {
 });
 
 restartButton.addEventListener('click', startQuiz);
-score = score ^ score
+score = score ^ score;
 startQuiz();
