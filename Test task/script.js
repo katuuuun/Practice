@@ -123,9 +123,20 @@ function selectAnswer(button) {
         selectedAnswers = selectedAnswers.filter(b => b !== button);
         button.classList.remove('selected');
     } else {
-        if (selectedAnswers.length < correctAnswersCount) {
-            selectedAnswers.push(button);
+        if (correctAnswersCount === 1) {
+            selectedAnswers.forEach(b => b.classList.remove('selected'));
+            selectedAnswers = [button];
             button.classList.add('selected');
+        } else {
+            if (selectedAnswers.length < correctAnswersCount) {
+                selectedAnswers.push(button);
+                button.classList.add('selected');
+            } else {
+                const lastSelected = selectedAnswers.pop();
+                lastSelected.classList.remove('selected');
+                selectedAnswers.push(button);
+                button.classList.add('selected');
+            }
         }
     }
     if (selectedAnswers.length === correctAnswersCount) {
@@ -134,6 +145,7 @@ function selectAnswer(button) {
         nextButton.classList.add('hide');
     }
 }
+
 
 function setStatusClass(element, correct) {
     clearStatusClass(element);
@@ -182,7 +194,7 @@ nextButton.addEventListener('click', () => {
         setTimeout(() => {
             showQuestion(questions[currentQuestionIndex]);
             nextButton.classList.add('hide');
-        }, 500);
+        }, 670);
     } else {
         setTimeout(showResults, 500);
     }
