@@ -76,12 +76,14 @@ const resultsElement = document.getElementById('results');
 const scoreContainer = document.getElementById('score-container');
 const scoreElement = document.getElementById('score');
 const finalScoreElement = document.getElementById('final-score');
+const totalTimeElement = document.getElementById('total-time');
 const restartButton = document.getElementById('restart-btn');
 
 let currentQuestionIndex = 0;
 let score = 0;
 let selectedAnswers = [];
 let correctAnswersCount = 0;
+let startTime;
 
 function startQuiz() {
     currentQuestionIndex = 0;
@@ -92,6 +94,7 @@ function startQuiz() {
     nextButton.classList.add('hide');
     scoreContainer.classList.remove('hide');
     scoreElement.innerText = `Score: ${score}`;
+    startTime = new Date();
     showQuestion(questions[currentQuestionIndex]);
 }
 
@@ -146,7 +149,6 @@ function selectAnswer(button) {
     }
 }
 
-
 function setStatusClass(element, correct) {
     clearStatusClass(element);
     if (correct) {
@@ -166,6 +168,11 @@ function showResults() {
     questionContainerElement.classList.add('hide');
     resultsElement.classList.remove('hide');
     finalScoreElement.innerText = `Your score: ${score}`;
+    const endTime = new Date();
+    const totalTime = Math.floor((endTime - startTime) / 1000);
+    const minutes = Math.floor(totalTime / 60);
+    const seconds = totalTime % 60;
+    totalTimeElement.innerText = `Total time: ${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
     scoreContainer.classList.add('hide');
     nextButton.classList.add('hide');
 }
